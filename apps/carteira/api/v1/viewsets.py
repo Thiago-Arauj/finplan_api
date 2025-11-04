@@ -5,6 +5,6 @@ from rest_framework.permissions import IsAuthenticated
 
 
 class CarteiraViewsets(viewsets.ModelViewSet):
-    queryset = Carteira.objects.all()
+    queryset = Carteira.objects.actives()
     serializer_class = CarteiraSerializer
     permission_classes = [IsAuthenticated]

@@ -1,5 +1,5 @@
 from django.db import models
-from apps.carteira.models import BaseModel
+from apps.core.models import BaseModel
 from apps.carteira.models import Carteira
 
 
