@@ -19,3 +19,13 @@ class Transacao(BaseModel):
 
     def __str__(self):
         return f"{self.get_tipo_display()} - {self.valor} ({self.descricao})"
+
+    def save(self, *args, **kwargs):
+        if self.pk is None:
+            if self.tipo == 'R':
+                self.carteira.saldo_inicial += self.valor
+            elif self.tipo == 'D':
+                self.carteira.saldo_inicial -= self.valor
+            self.carteira.save()
+
+        super().save(*args, **kwargs)
