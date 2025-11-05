@@ -10,7 +10,9 @@ class Transacao(BaseModel):
     ]
 
     carteira = models.ForeignKey(
-        Carteira, on_delete=models.CASCADE, related_name="Transações"
+        Carteira,
+        on_delete=models.CASCADE,
+        related_name="Transações"
     )
     tipo = models.CharField(max_length=1, choices=TIPO_CHOICES)
     descricao = models.CharField(max_length=200)
@@ -23,9 +25,9 @@ class Transacao(BaseModel):
     def save(self, *args, **kwargs):
         if self.pk is None:
             if self.tipo == 'R':
-                self.carteira.saldo_inicial += self.valor
+                self.carteira.saldo += self.valor
             elif self.tipo == 'D':
-                self.carteira.saldo_inicial -= self.valor
+                self.carteira.saldo -= self.valor
             self.carteira.save()
 
         super().save(*args, **kwargs)
